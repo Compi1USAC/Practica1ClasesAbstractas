@@ -5,9 +5,10 @@
 
 ### _ENTRADAS ADMITIDAS_
 
-#### **Archivo de Reportes**
+#### **Archivo de Datos**
 - Ejemplo:
 	```
 	Archivo datos1 = leerArchivo("archivo_datos.dat");
-	imprimir(datos1);
+	Numerico numRegistros = Contar(datos1);
+	imprimir(numRegistros);
 	```

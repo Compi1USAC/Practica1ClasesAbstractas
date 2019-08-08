@@ -86,7 +86,7 @@ action code
 //-------> TERMINALES
 terminal apar, cpar, coma, puntoComa, igual;
 terminal mas, menos, por, dividir;
-terminal String id, numero, cadena, claves, registros;
+terminal String id, numero, cadena, claves, registros, contar;
 terminal String imprimir, numerico, archivo, leerarchivo;
 
 //-------> NO TERMINALES
@@ -121,7 +121,7 @@ INSTRUCCION ::= DECLARACION:a {: RESULT = a; :}
             ;
 
 DECLARACION ::= TIPO:tipo id:nombre igual E:asignacion puntoComa {: RESULT = new Declaracion(tipo, nombre, asignacion, tiporight, tipoleft); :}
-            ;
+            ;   
 
 TIPO ::= numerico:a {: RESULT = EnumTipoDato.NUMERICO; :}
       | archivo:a {: RESULT = EnumTipoDato.ARCHIVO; :}
@@ -131,7 +131,17 @@ IMPRIMIR ::= imprimir:a apar E:b cpar puntoComa {: RESULT = new Imprimir(b, arig
           ;
 
 E ::= leerarchivo:l apar E:ruta cpar {: RESULT = new FuncionLeerArchivo(ruta, lright, lleft); :}
+      | contar:a apar E:b cpar {: RESULT = new Contar(b); :}
       | numero:a {: RESULT = new Literal(EnumTipoDato.NUMERICO, a); :}
       | cadena:a {: RESULT = new Literal(EnumTipoDato.CADENA, a); :}
       | id:a {: RESULT = new Id(a, aright, aleft); :}
       ;
+
+/*** 
+      Instruccion
+          |
+        Sumar 
+      /      \
+  ClaseId   ClaseLiteral
+
+***/

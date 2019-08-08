@@ -2,11 +2,11 @@ package Generadores;
 
 import java.io.File;
 
-public class GLexico 
+public class GLexicoRep 
 {
     public static void main(String[] args) 
     {
-        String path="src/Analizadores/a_Lexico.jflex";
+        String path="src/Analizadores/a_Lexico_rep.jflex";
         generarLexer(path);
     } 
     

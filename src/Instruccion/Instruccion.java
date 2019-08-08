@@ -19,5 +19,5 @@ public abstract class Instruccion {
        DECLARACION,
        IMPRIMIR,
        LEERARCHIVO
-    }
+    }            
 }

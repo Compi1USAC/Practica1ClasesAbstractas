@@ -5,8 +5,8 @@
  */
 package EjemploAbstractas;
 
-import Analizadores.a_Lexico;
-import Analizadores.analisis_sintactico;
+import Analizadores.a_Lexico_rep;
+import Analizadores.analisis_sintactico_rep;
 import Entorno.Entorno;
 import Instruccion.Instruccion;
 import java.io.BufferedReader;
@@ -89,15 +89,29 @@ public class Mostrar extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        LinkedList<Ciudadano> listaCiudadanos = new LinkedList<>();
+        Ingeniero ing = new Ingeniero();
+        Maestro ma = new Maestro();
+        listaCiudadanos.add(ing);
+        listaCiudadanos.add(ma);
+        
+        for (int i = 0; i < listaCiudadanos.size(); i++) {
+            System.out.println("Trabajar::");
+            listaCiudadanos.get(i).trabajar();
+        }
+        
+        
+        
+        
         analizarEntrada();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void analizarEntrada(){
         String datos = entrada.getText();
         salidaConsola.setText("");
-        a_Lexico lexico = new a_Lexico(new BufferedReader(new StringReader(datos)));
+        a_Lexico_rep lexico = new a_Lexico_rep(new BufferedReader(new StringReader(datos)));
         lexico.salidaConsola = salidaConsola; // Se iguala la consola de la interfaz a la consola del analizador
-        analisis_sintactico sintactico = new analisis_sintactico(lexico);
+        analisis_sintactico_rep sintactico = new analisis_sintactico_rep(lexico);
         sintactico.salidaConsola = salidaConsola; // Se iguala la consola de la interfaz a la consola del analizador
         try{
             sintactico.parse();
@@ -106,7 +120,7 @@ public class Mostrar extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    public void recorrerArbol(analisis_sintactico sintactico){
+    public void recorrerArbol(analisis_sintactico_rep sintactico){
         Entorno ent = new Entorno(null);
         LinkedList<Instruccion> listaInstrucciones = sintactico.resultado;
         for (Instruccion i : listaInstrucciones) {

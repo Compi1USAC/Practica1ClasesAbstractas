@@ -1,7 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Generadores;
 
-public class GSintactico
-{
+/**
+ *
+ * @author miguel
+ */
+public class GSintacticoDatos {
+    
    public static void main(String[] args)
     {
         String opciones[] = new String[7]; 
@@ -16,16 +25,16 @@ public class GSintactico
         opciones[2] = "-symbols"; 
         
         //Le damos el nombre que queremos que tenga
-        opciones[3] = "Simbolos";
+        opciones[3] = "simbolos_datos";
         
         //Seleccionamos la opcion de clase parser
         opciones[4] = "-parser";         
         
         //Le damos nombre a esa clase del paso anterior
-        opciones[5] = "analisis_sintactico"; 
+        opciones[5] = "analisis_sintactico_datos"; 
         
         //Le decimos donde se encuentra el archivo .cup 
-        opciones[6] = "src/Analizadores/a_Sintactico.cup"; 
+        opciones[6] = "src/Analizadores/a_Sintactico_datos.cup"; 
         try 
         {
             java_cup.Main.main(opciones);

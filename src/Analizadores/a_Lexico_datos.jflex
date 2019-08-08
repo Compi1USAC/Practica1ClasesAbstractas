@@ -8,7 +8,6 @@ package Analizadores;
 
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import java.awt.TextArea;
 
 %%
 /*----------------------------------------------------------------------------
@@ -17,14 +16,13 @@ import java.awt.TextArea;
 
 %{
     String cadena="";
-    public TextArea salidaConsola;
     /*public static LinkedList<AcepErr> TablaErr=new LinkedList<AcepErr>();*/
 %}
 
 //-------> Directivas
 %public
-%class a_Lexico
-%cupsym Simbolos
+%class a_Lexico_datos
+%cupsym simbolos_datos
 %cup
 %char
 %line
@@ -55,7 +53,7 @@ id = {letra}+({letra}|{digito}|"_")*
 
 <STRNG>{
     [\"] {  String temporal=cadena; cadena=""; yybegin(YYINITIAL);
-        return new Symbol(Simbolos.cadena, yychar,yyline,temporal);   }
+        return new Symbol(simbolos_datos.cadena, yychar,yyline,temporal);   }
     [^\"] { cadena+=yytext(); }
 }
 
@@ -71,63 +69,55 @@ id = {letra}+({letra}|{digito}|"_")*
 
 //-------> Operadores Aritmeticos
 
-<YYINITIAL> "+"         {   System.out.println("Reconocido: <<"+yytext()+">>, mas");
-                            return new Symbol(Simbolos.mas, yycolumn, yyline, yytext());}
-
-<YYINITIAL> "-"         {   System.out.println("Reconocido: <<"+yytext()+">>, menos");
-                            return new Symbol(Simbolos.menos, yycolumn, yyline, yytext());}
-
-<YYINITIAL> "*"         {   System.out.println("Reconocido: <<"+yytext()+">>, por");
-                            return new Symbol(Simbolos.por, yycolumn, yyline, yytext());}
-
-<YYINITIAL> "/"         {   System.out.println("Reconocido: <<"+yytext()+">>, dividir");
-                            return new Symbol(Simbolos.dividir, yycolumn, yyline, yytext());}
-
 <YYINITIAL> "("         {   System.out.println("Reconocido: <<"+yytext()+">>, apar");
-                            return new Symbol(Simbolos.apar, yycolumn, yyline, yytext());}
+                            return new Symbol(simbolos_datos.apar, yycolumn, yyline, yytext());}
 
 <YYINITIAL> ")"         {   System.out.println("Reconocido: <<"+yytext()+">>, cpar");
-                            return new Symbol(Simbolos.cpar, yycolumn, yyline, yytext());}
+                            return new Symbol(simbolos_datos.cpar, yycolumn, yyline, yytext());}
+
+<YYINITIAL> "["         {   System.out.println("Reconocido: <<"+yytext()+">>, acorhc");
+                            return new Symbol(simbolos_datos.acorch, yycolumn, yyline, yytext());}
+
+<YYINITIAL> "]"         {   System.out.println("Reconocido: <<"+yytext()+">>, ccorch");
+                            return new Symbol(simbolos_datos.ccorch, yycolumn, yyline, yytext());}
+
+<YYINITIAL> "{"         {   System.out.println("Reconocido: <<"+yytext()+">>, allave");
+                            return new Symbol(simbolos_datos.allave, yycolumn, yyline, yytext());}
+
+<YYINITIAL> "}"         {   System.out.println("Reconocido: <<"+yytext()+">>, cllave");
+                            return new Symbol(simbolos_datos.cllave, yycolumn, yyline, yytext());}
 
 <YYINITIAL> ","         {   System.out.println("Reconocido: <<"+yytext()+">>, coma");
-                            return new Symbol(Simbolos.coma, yycolumn, yyline, yytext());}
+                            return new Symbol(simbolos_datos.coma, yycolumn, yyline, yytext());}
 
 <YYINITIAL> ";"         {   System.out.println("Reconocido: <<"+yytext()+">>, puntoComa");
-                            return new Symbol(Simbolos.puntoComa, yycolumn, yyline, yytext());}
+                            return new Symbol(simbolos_datos.puntoComa, yycolumn, yyline, yytext());}
 
 <YYINITIAL> "="         {   System.out.println("Reconocido: <<"+yytext()+">>, igual");
-                            return new Symbol(Simbolos.igual, yycolumn, yyline, yytext());}
+                            return new Symbol(simbolos_datos.igual, yycolumn, yyline, yytext());}
 
 
 //-------> Reservadas, tipos de datos y del sistema
 
-<YYINITIAL> "imprimir"       {   System.out.println("Reconocido: <<"+yytext()+">>, imprimir");
-                                return new Symbol(Simbolos.imprimir, yycolumn, yyline, yytext());}
+<YYINITIAL> "registros"       {   System.out.println("Reconocido: <<"+yytext()+">>, TokenRegistro");
+                                return new Symbol(simbolos_datos.registros, yycolumn, yyline, yytext());}
 
-<YYINITIAL> "numerico"       {   System.out.println("Reconocido: <<"+yytext()+">>, tokenNunerico");
-                                return new Symbol(Simbolos.numerico, yycolumn, yyline, yytext());}
-
-<YYINITIAL> "archivo"       {   System.out.println("Reconocido: <<"+yytext()+">>, tokenArchivo");
-                                return new Symbol(Simbolos.archivo, yycolumn, yyline, yytext());}
-
-<YYINITIAL> "leerarchivo"       {   System.out.println("Reconocido: <<"+yytext()+">>, tokenLeerArchivo");
-                                return new Symbol(Simbolos.leerarchivo, yycolumn, yyline, yytext());}
+<YYINITIAL> "claves"       {   System.out.println("Reconocido: <<"+yytext()+">>, TokenRegistro");
+                                return new Symbol(simbolos_datos.claves, yycolumn, yyline, yytext());}
 
 "\"" {yybegin(STRNG);}
 
 <YYINITIAL> {numero}                  {   System.out.println("Reconocido: <<"+yytext()+">>, numero ");
-                                return new Symbol(Simbolos.numero, yycolumn, yyline, yytext());}
+                                return new Symbol(simbolos_datos.numero, yycolumn, yyline, yytext());}
 <YYINITIAL> {id}                      {   System.out.println("Reconocido: <<"+yytext()+">>, id ");
-                                return new Symbol(Simbolos.id, yycolumn, yyline, yytext());}
+                                return new Symbol(simbolos_datos.id, yycolumn, yyline, yytext());}
 
 
 
 
 [ \t\r\n\f]                 {/* ignore white space. */ }
  
-.                           {   String info = "Error Lexico: <<"+yytext()+">> ["+(yyline+1)+" , "+(yycolumn+1)+"]\n";
-                                salidaConsola.append(info);
-                                System.out.println(info);
+.                           {   System.out.println("Error Lexico: <<"+yytext()+">> ["+yyline+" , "+yycolumn+"]");
                                 /*AcepErr datos =new AcepErr(yytext(),"ERROR LEXICO",(yyline+1),(yycolumn+1), "Simbolo no existe en el lenguaje");
                                     TablaErr.add(datos);*/
 

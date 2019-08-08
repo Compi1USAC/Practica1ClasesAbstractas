@@ -7,6 +7,7 @@ package Instruccion;
 
 import static EjemploAbstractas.Mostrar.salidaConsola;
 import Entorno.Entorno;
+import Entorno.Simbolo.EnumTipoDato;
 import Expresion.Expresion;
 import java.util.LinkedList;
 
@@ -27,8 +28,12 @@ public class Imprimir extends Instruccion{
     public void ejecutar(Entorno ent) {
         System.out.println("Ejecutando la instrucción Imprimir");
         Expresion resultado = this.expresion.obtenerValor(ent);
-        System.out.println(resultado.valor);
-        salidaConsola.append((String) resultado.valor);
+        if(resultado.getTipo() == EnumTipoDato.ERROR){
+            System.out.println("La expresion es un error :(");
+            return;
+        }
+        System.out.println(String.valueOf(resultado.valor));
+        salidaConsola.append(String.valueOf(resultado.valor));
     }
 
     @Override
