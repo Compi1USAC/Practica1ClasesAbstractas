@@ -5,6 +5,7 @@
  */
 package Expresion;
 import Datos.Archivo;
+import Datos.Archivo.TipoRelacional;
 import Datos.Registro;
 import Entorno.Entorno;
 import Entorno.Simbolo;
@@ -14,13 +15,17 @@ import java.util.LinkedList;
  *
  * @author miguel
  */
-public class Sumar extends Expresion{
+public class ContarSi extends Expresion{
     public Expresion expId;
     public Expresion expClave;
+    public Expresion expValor;
+    public TipoRelacional relacional;
     
-    public Sumar(Expresion expId, Expresion expClave, int fila, int columna){
+    public ContarSi(Expresion expId, Expresion expClave, TipoRelacional relacional, Expresion expValor, int fila, int columna){
         this.expId = expId;
         this.expClave = expClave;
+        this.expValor = expValor;
+        this.relacional = relacional;
         this.fila = fila;
         this.columna = columna;
     }
@@ -32,8 +37,10 @@ public class Sumar extends Expresion{
         Expresion resultadoClave = this.expClave.obtenerValor(ent);
         String idClave = resultadoClave.valor.toString();
         
-        Expresion suma = arch.sumar(idClave);
-        return new Literal(EnumTipoDato.NUMERICO, Double.parseDouble(suma.valor.toString()));
+        Expresion resultadoValor = this.expValor.obtenerValor(ent);
+        
+        Expresion contarSi = arch.contarSi(idClave, relacional, resultadoValor);
+        return new Literal(EnumTipoDato.NUMERICO, Double.parseDouble(contarSi.valor.toString()));
     }
 
     @Override

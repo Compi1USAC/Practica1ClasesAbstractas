@@ -98,6 +98,9 @@ id = {letra}+({letra}|{digito}|"_")*
 <YYINITIAL> "="         {   System.out.println("Reconocido: <<"+yytext()+">>, igual");
                             return new Symbol(Simbolos.igual, yycolumn, yyline, yytext());}
 
+<YYINITIAL> "=="         {   System.out.println("Reconocido: <<"+yytext()+">>, igualigual");
+                            return new Symbol(Simbolos.igualigual, yycolumn, yyline, yytext());}
+
 
 //-------> Reservadas, tipos de datos y del sistema
 
@@ -115,6 +118,12 @@ id = {letra}+({letra}|{digito}|"_")*
 
 <YYINITIAL> "contar"       {   System.out.println("Reconocido: <<"+yytext()+">>, tokenContar");
                                 return new Symbol(Simbolos.contar, yycolumn, yyline, yytext());}
+
+<YYINITIAL> "contarsi"       {   System.out.println("Reconocido: <<"+yytext()+">>, tokenContarSi");
+                                return new Symbol(Simbolos.contarSi, yycolumn, yyline, yytext());}
+
+<YYINITIAL> "sumar"       {   System.out.println("Reconocido: <<"+yytext()+">>, tokenSumar");
+                                return new Symbol(Simbolos.sumar, yycolumn, yyline, yytext());}
 
 "\"" {yybegin(STRNG);}
 

@@ -8,10 +8,14 @@ package Expresion;
 import Analizadores.a_Lexico_datos;
 import Analizadores.analisis_sintactico_datos;
 import Datos.Archivo;
+import static EjemploAbstractas.Mostrar.salidaConsola;
 import Entorno.Entorno;
 import Entorno.Simbolo;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
 
 /**
@@ -33,31 +37,55 @@ public class FuncionLeerArchivo extends Expresion{
 
     @Override
     public Expresion obtenerValor(Entorno ent) {
+
         Expresion resultadoNombreArchivo = this.expRuta.obtenerValor(ent);
-        File f = null;
-        /** CODIGO PARA LEER EL ARCHIVO resultadoNombreArchivo.valor.toString **/
-        String datos = "claves = [\n" +
-        "    \"1024\" // Registro 1\n" +
-        "]\n" +
-        "Registros = [\n" +
-        "    {1, \"Nery\", \"Galvez\"} // Registro 1\n" +
-        "    {2, \"Miguel\", \"Ruano\"} // Registro 2\n" +
-        "    {3, \"Erick\", \"Tejaxún\"} // Registro 3\n" +
-        "    {4, \"Erick\", \"Tejaxún\"} // Registro 3\n" +
-        "]";
+        /** LEER CONTENIDO DEL ARCHIVO **/
+        String datos;
+        try {
+            datos = leerArchivo(resultadoNombreArchivo.valor.toString());
+        } catch (IOException ex) {
+            salidaConsola.append("No se pudo abrir el archivo..."+resultadoNombreArchivo.valor.toString()+"\n");
+            return new Literal(Simbolo.EnumTipoDato.ERROR, "%ERROR%");
+        }
+        /** HACER EL ARBOL DEL ARCHIVO **/
+        Archivo arbol = obtenerArbolDeArchivo(datos);
+        if(arbol != null){
+            return new Literal(Simbolo.EnumTipoDato.ARCHIVO, arbol);
+        }
+        return new Literal(Simbolo.EnumTipoDato.ERROR, "%ERROR%");
+    }
+    /***
+     * FUncion que lee el contenido de un archivo
+     * @param nombreArchivo el nombre del archivo y su ruta
+     * @return el contenido en String
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
+    public String leerArchivo(String nombreArchivo) throws FileNotFoundException, IOException{
+        String datos = "";
+        File file = new File(nombreArchivo); 
+        BufferedReader br = new BufferedReader(new FileReader(file)); 
+        String st; 
+        while ((st = br.readLine()) != null)
+          datos = datos + st + "\n";
+        return datos;
+    }
+    
+    public Archivo obtenerArbolDeArchivo(String datos){
+        Archivo arbol;
         a_Lexico_datos lexico = new a_Lexico_datos(new BufferedReader(new StringReader(datos)));
         analisis_sintactico_datos sintactico = new analisis_sintactico_datos(lexico);
         try{
             sintactico.parse();
-            Archivo arbol = sintactico.resultado;
-            return new Literal(Simbolo.EnumTipoDato.ARCHIVO, arbol);
+            arbol = sintactico.resultado;
+            return arbol;
         }catch(Exception e){
+            salidaConsola.append("No se generó el árbol correctamente\n");
             System.out.println(e);
         }
-        return new Literal(Simbolo.EnumTipoDato.LEERARCHIVO,
-                        "Aquí debe imprimir el contenido del archivo llamado: "+resultadoNombreArchivo.valor.toString());
+        return null;
     }
-
+    
     @Override
     public Simbolo.EnumTipoDato getTipo() {
         return this.tipo;

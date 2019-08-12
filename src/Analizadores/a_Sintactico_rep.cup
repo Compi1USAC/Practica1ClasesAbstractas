@@ -13,6 +13,7 @@ import Entorno.*;
 import Entorno.Simbolo.EnumTipoDato;
 import Expresion.*;
 import Instruccion.*;
+import Datos.Archivo.TipoRelacional;
 
 //-------> Codigo para el parser, variables, metodos
 
@@ -84,17 +85,18 @@ action code
 ----------------------------------------------------------------------------*/
 
 //-------> TERMINALES
-terminal apar, cpar, coma, puntoComa, igual;
+terminal apar, cpar, coma, puntoComa, igual, igualigual;
 terminal mas, menos, por, dividir;
-terminal String id, numero, cadena, claves, registros, contar;
+terminal String id, numero, cadena, claves, registros, contar, sumar, contarSi;
 terminal String imprimir, numerico, archivo, leerarchivo;
 
 //-------> NO TERMINALES
 non terminal LinkedList<Instruccion> INICIO, LISTAINSTRUCCION;
+non terminal LinkedList<Expresion> LISTAE;
 non terminal Instruccion IMPRIMIR, DECLARACION, INSTRUCCION;
 non terminal Expresion E;
 non terminal EnumTipoDato TIPO;
-
+non terminal TipoRelacional RELA;
 start with INICIO;
 
 /*-------------------------------------------------------------------
@@ -127,15 +129,30 @@ TIPO ::= numerico:a {: RESULT = EnumTipoDato.NUMERICO; :}
       | archivo:a {: RESULT = EnumTipoDato.ARCHIVO; :}
       ;
 
-IMPRIMIR ::= imprimir:a apar E:b cpar puntoComa {: RESULT = new Imprimir(b, aright, aleft); :}
+IMPRIMIR ::= imprimir:a apar LISTAE:b cpar puntoComa {: RESULT = new Imprimir(b, aright, aleft); :}
           ;
 
+LISTAE ::= LISTAE:l coma E:a{:
+            RESULT = l;
+            l.add(a);
+        :}
+        | E:a {:
+            RESULT = new LinkedList<>();
+            RESULT.add(a);
+        :}
+        ;
+
 E ::= leerarchivo:l apar E:ruta cpar {: RESULT = new FuncionLeerArchivo(ruta, lright, lleft); :}
-      | contar:a apar E:b cpar {: RESULT = new Contar(b); :}
+      | contar:a apar E:b cpar {: RESULT = new Contar(b, aright, aleft); :}
+      | contarSi:a apar E:b coma E:c coma RELA:d coma E:val cpar {: RESULT = new ContarSi(b, c, d, val, aright, aleft); :}
+      | sumar:a apar E:b coma E:c cpar {: RESULT = new Sumar(b, c, aright, aleft); :}
       | numero:a {: RESULT = new Literal(EnumTipoDato.NUMERICO, a); :}
       | cadena:a {: RESULT = new Literal(EnumTipoDato.CADENA, a); :}
       | id:a {: RESULT = new Id(a, aright, aleft); :}
       ;
+
+RELA ::= igualigual {: RESULT = TipoRelacional.IGUALIGUAL; :}
+       ;
 
 /*** 
       Instruccion

@@ -17,12 +17,13 @@ import Entorno.Simbolo.EnumTipoDato;
 public class Contar extends Expresion{
     public Expresion exp;
     
-    public Contar(Expresion exp){
+    public Contar(Expresion exp, int fila, int columna){
         this.exp = exp;
+        this.fila = fila;
+        this.columna = columna;
     }
     @Override
     public Expresion obtenerValor(Entorno ent) {
-        System.out.println("Haciendo contar");
         Expresion resultado = exp.obtenerValor(ent);
         Archivo arch = (Archivo)resultado.valor;
         return new Literal(EnumTipoDato.NUMERICO, arch.contar());

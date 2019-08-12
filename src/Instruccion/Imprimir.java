@@ -16,10 +16,10 @@ import java.util.LinkedList;
  * @author miguel
  */
 public class Imprimir extends Instruccion{
-    Expresion expresion;
+    LinkedList<Expresion> expresiones;
     
-    public Imprimir(Expresion expresion, int fila, int columna) {
-        this.expresion = expresion;
+    public Imprimir(LinkedList<Expresion> expresiones, int fila, int columna) {
+        this.expresiones = expresiones;
         this.fila = fila;
         this.columna = columna;
     }
@@ -27,13 +27,18 @@ public class Imprimir extends Instruccion{
     @Override
     public void ejecutar(Entorno ent) {
         System.out.println("Ejecutando la instrucción Imprimir");
-        Expresion resultado = this.expresion.obtenerValor(ent);
-        if(resultado.getTipo() == EnumTipoDato.ERROR){
-            System.out.println("La expresion es un error :(");
-            return;
+        String salida = "";
+        for (int i = 0; i < this.expresiones.size(); i++) {
+         Expresion resultado = this.expresiones.get(i).obtenerValor(ent);
+            if(resultado.getTipo() == EnumTipoDato.ERROR){
+                System.out.println("La expresion es un error :(");
+                return;
+            }else{
+                salida += resultado.valor.toString();
+            }
         }
-        System.out.println(String.valueOf(resultado.valor));
-        salidaConsola.append(String.valueOf(resultado.valor));
+        System.out.println(salida);
+        salidaConsola.append(salida+"\n");
     }
 
     @Override

@@ -1,0 +1,33 @@
+Claves = ["IdProducto", "NombreProducto", "Proveedor", "Categoría", "CantidadPorUnidad", "PrecioUnidad", "UnidadesEnExistencia", "Suspendido"]
+Número de registros = 20
+
+Número de registros: 20
+El número de unidades es: 665.0
+El promedio de precio por unidad es: 31.3125
+Número de productos suspendidos: 3
+Número de productos NO suspendidos: 17
+
+
+******************** Frutas/Verduras ********************
+[
+	{ IdProducto : 7 , NombreProducto : "Peras secas orgánicas del tío Bob" , Proveedor : "Grandma Kelly's Homestead" , Categoría : "Frutas/Verduras" , CantidadPorUnidad : "12 - paq. 1 kg" , PrecioUnidad : 30 , UnidadesEnExistencia : 15 , Suspendido : "FALSO" }
+	{ IdProducto : 14 , NombreProducto : "Cuajada de judías" , Proveedor : "Mayumi's" , Categoría : "Frutas/Verduras" , CantidadPorUnidad : "40 - paq. 100 g" , PrecioUnidad : 23.25 , UnidadesEnExistencia : 35 , Suspendido : "FALSO" }
+]
+
+******************** Repostería ********************
+[
+	{ IdProducto : 16 , NombreProducto : "Postre de merengue Pavlova" , Proveedor : "Pavlova, Ltd." , Categoría : "Repostería" , CantidadPorUnidad : "32 - cajas 500 g" , PrecioUnidad : 17.45 , UnidadesEnExistencia : 29 , Suspendido : "FALSO" }
+	{ IdProducto : 19 , NombreProducto : "Pastas de té de chocolate" , Proveedor : "Specialty Biscuits, Ltd." , Categoría : "Repostería" , CantidadPorUnidad : "10 cajas x 12 piezas" , PrecioUnidad : 9.2 , UnidadesEnExistencia : 25 , Suspendido : "FALSO" }
+	{ IdProducto : 20 , NombreProducto : "Mermelada de Sir Rodney's" , Proveedor : "Specialty Biscuits, Ltd." , Categoría : "Repostería" , CantidadPorUnidad : "30 cajas regalo" , PrecioUnidad : 81 , UnidadesEnExistencia : 40 , Suspendido : "FALSO" }
+]
+
+******************** Productos con Existencia < 20 ********************
+[
+	{ IdProducto : 2 , NombreProducto : "Cerveza tibetana Barley" , Proveedor : "Exotic Liquids" , Categoría : "Bebidas" , CantidadPorUnidad : "24 - bot. 12 l" , PrecioUnidad : 19 , UnidadesEnExistencia : 17 , Suspendido : "FALSO" }
+	{ IdProducto : 3 , NombreProducto : "Sirope de regaliz" , Proveedor : "Exotic Liquids" , Categoría : "Condimentos" , CantidadPorUnidad : "12 - bot. 550 ml" , PrecioUnidad : 10 , UnidadesEnExistencia : 13 , Suspendido : "FALSO" }
+	{ IdProducto : 5 , NombreProducto : "Mezcla Gumbo del chef Anton" , Proveedor : "New Orleans Cajun Delights" , Categoría : "Condimentos" , CantidadPorUnidad : "36 cajas" , PrecioUnidad : 21.35 , UnidadesEnExistencia : 0 , Suspendido : "VERDADERO" }
+	{ IdProducto : 7 , NombreProducto : "Peras secas orgánicas del tío Bob" , Proveedor : "Grandma Kelly's Homestead" , Categoría : "Frutas/Verduras" , CantidadPorUnidad : "12 - paq. 1 kg" , PrecioUnidad : 30 , UnidadesEnExistencia : 15 , Suspendido : "FALSO" }
+	{ IdProducto : 8 , NombreProducto : "Salsa de arándanos Northwoods" , Proveedor : "Grandma Kelly's Homestead" , Categoría : "Condimentos" , CantidadPorUnidad : "12 - frascos 12 l" , PrecioUnidad : 40 , UnidadesEnExistencia : 6 , Suspendido : "FALSO" }
+	{ IdProducto : 17 , NombreProducto : "Cordero Alice Springs" , Proveedor : "Pavlova, Ltd." , Categoría : "Carnes" , CantidadPorUnidad : "20 - latas 1 kg" , PrecioUnidad : 39 , UnidadesEnExistencia : 0 , Suspendido : "VERDADERO" }
+]
+

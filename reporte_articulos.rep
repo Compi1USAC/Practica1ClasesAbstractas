@@ -1,0 +1,57 @@
+
+
+/**
+*	Creo una variable de tipo Archivo
+*/
+
+Archivo articulos = leerArchivo("articulos.dat");
+Imprimir(articulos);
+
+
+// Veo cuántos registros tiene el archivo
+Numerico numeroRegistros = Contar(articulos);
+Imprimir("Número de registros: ", numeroRegistros); //20
+
+//Sumo el número de unidades en existencia
+Numerico sumaUnidades = Sumar(articulos, "UnidadesEnExistencia");
+Imprimir("El número de unidades es: ", sumaUnidades); //665.0
+
+// Veo cuál es el promedio del precio por unidad
+Numerico promedioUnidad = promedio(articulos,"PrecioUnidad");
+imprimir("El promedio de precio por unidad es: ", promedioUnidad); //31.3125
+
+// Veo cuántos productos tienen estado SUSPENDIDO
+Numerico suspendidos = contarSi(articulos, "Suspendido", ==, "VERDADERO");
+imprimir("Número de productos suspendidos: ", suspendidos); //3
+
+// Veo cuántos productos NO tienen estado SUSPENDIDO
+Numerico noSuspendidos = contarSi(articulos, "Suspendido", !=, "VERDADERO");
+imprimir("Número de productos NO suspendidos: ", noSuspendidos); //17
+imprimir("");
+imprimir("");
+
+// Obtengo la información de los productos de la categoría Frutas/Verduras
+Cadena frutas_verduras = ObtenerSi(articulos, "Categoría", ==, "Frutas/Verduras");
+Imprimir("******************** Frutas/Verduras ********************");
+Imprimir(frutas_verduras);
+
+// Obtengo la información de los productos de la categoría Repostería
+Cadena reposteria = ObtenerSi(articulos, "Categoría", ==, "Repostería");
+Imprimir("******************** Repostería ********************");
+Imprimir(reposteria);
+
+
+// Obtengo la información de los productos donde la existencia es menor a 20
+Cadena productos = ObtenerSi(articulos, "UnidadesEnExistencia", <, 20);
+Imprimir("******************** Productos con Existencia < 20 ********************");
+Imprimir(productos);
+
+
+
+/**
+*	Generación de reportes con la función Graficar
+*/
+
+Graficar("precioProductos", "Precio por unidad de cada producto", articulos, "NombreProducto", "PrecioUnidad");
+
+
